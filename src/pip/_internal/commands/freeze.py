@@ -70,6 +70,12 @@ class FreezeCommand(Command):
             action="store_true",
             help="Exclude editable package from output.",
         )
+        self.cmd_opts.add_option(
+            "--exclude-dependencies",
+            dest="exclude_dependencies",
+            action="store_true",
+            help="Exclude from the output packages that are dependencies of installed packages.",
+        )
         self.cmd_opts.add_option(cmdoptions.list_exclude())
 
         self.parser.insert_option_group(0, self.cmd_opts)
@@ -92,6 +98,7 @@ class FreezeCommand(Command):
             isolated=options.isolated_mode,
             skip=skip,
             exclude_editable=options.exclude_editable,
+            exclude_dependencies=options.exclude_dependencies,
         ):
             sys.stdout.write(line + "\n")
         return SUCCESS
